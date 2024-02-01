@@ -42,14 +42,6 @@ variable "federated_identity_description" {
   default     = ""
 }
 
-variable "federated_identity_audience" {
-  type = string
-  # This is the recommended value from MSFT, as it is what AAD expects to be in the "aud" claim of
-  # the token
-  # See https://learn.microsoft.com/en-us/azure/active-directory/develop/workload-identity-federation-create-trust?pivots=identity-wif-apps-methods-azp#important-considerations-and-restrictions
-  default = "api://AzureADTokenExchange"
-}
-
 variable "federated_identity_issuer" {
   type        = string
   description = "The URL of the external identity provider, which must match the issuer claim of the external token being exchanged. The combination of the values of issuer and subject must be unique on the app."
