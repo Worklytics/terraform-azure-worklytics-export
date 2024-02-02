@@ -47,3 +47,21 @@ variable "federated_identity_issuer" {
   description = "The URL of the external identity provider, which must match the issuer claim of the external token being exchanged. The combination of the values of issuer and subject must be unique on the app."
   default     = "https://accounts.google.com"
 }
+
+variable "worklytics_host" {
+  type        = string
+  description = "Host of worklytics instance where tenant resides. (e.g. app.worklytics.co for prod; but may differ for dev/staging)"
+  default     = "app.worklytics.co"
+}
+
+variable "todos_as_outputs" {
+  type        = bool
+  description = "Whether to render TODOs as outputs (former useful if you're using Terraform Cloud/Enterprise, or somewhere else where the filesystem is not readily accessible to you)"
+  default     = false
+}
+
+variable "todos_as_local_files" {
+  type        = bool
+  description = "Whether to render TODOs as flat files"
+  default     = true
+}
