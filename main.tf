@@ -21,7 +21,7 @@ locals {
   # the token. See docs:
   # https://learn.microsoft.com/en-us/azure/active-directory/develop/workload-identity-federation-create-trust?pivots=identity-wif-apps-methods-azp#important-considerations-and-restrictions
   federated_identity_audience = "api://AzureADTokenExchange"
-  todo_content = <<EOT
+  todo_content                = <<EOT
 
 # Configure Data Export in Worklytics
 
