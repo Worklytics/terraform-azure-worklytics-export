@@ -50,7 +50,7 @@ variable "federated_identity_issuer" {
 
 variable "worklytics_host" {
   type        = string
-  description = "Host of worklytics instance where tenant resides. (e.g. app.worklytics.co for prod; but may differ for dev/staging)"
+  description = "Host of worklytics instance where tenant resides"
   default     = "app.worklytics.co"
 }
 
