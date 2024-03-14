@@ -52,7 +52,7 @@ EOT
 # Create a storage container (https://<account>.blob.core.windows.net/<container>)
 # https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/storage_container
 resource "azurerm_storage_container" "worklytics" {
-  name                  = "${var.resource_name_prefix}container"
+  name                  = "${var.resource_name_prefix}export-container"
   storage_account_name  = var.storage_account_name
   container_access_type = "private"
 }
@@ -60,7 +60,7 @@ resource "azurerm_storage_container" "worklytics" {
 # Create Azure AD application: storage container access via federated identity
 # https://registry.terraform.io/providers/hashicorp/azuread/latest/docs/resources/application
 resource "azuread_application" "worklytics" {
-  display_name = "${var.resource_name_prefix}app"
+  display_name = "${var.resource_name_prefix}export-connector"
 
   feature_tags {
     hide       = true
@@ -79,7 +79,7 @@ resource "azuread_service_principal" "worklytics" {
 # Create Azure AD federated identity
 resource "azuread_application_federated_identity_credential" "worklytics" {
   application_id = azuread_application.worklytics.id
-  display_name   = "${var.resource_name_prefix}federated-identity"
+  display_name   = "${var.resource_name_prefix}export-federated-identity"
   description    = var.federated_identity_description
   audiences      = [local.federated_identity_audience]
   issuer         = var.federated_identity_issuer
