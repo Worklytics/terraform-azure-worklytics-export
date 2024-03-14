@@ -1,5 +1,9 @@
 #!/bin/bash
 
+# Basic "rsync" test
+# It doesn't use federated credentials, but it uses a SAS token to access the storage account,
+# to make sure the container is accessible.
+
 # Usage:
 # ./rsync.sh <STORAGE_ACCOUNT> <RESOURCE_GROUP> <CONTAINER_NAME>
 
