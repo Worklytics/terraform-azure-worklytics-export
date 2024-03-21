@@ -93,9 +93,17 @@ resource "azurerm_role_assignment" "role_contributor" {
   principal_id         = azuread_service_principal.worklytics.id
 }
 
-# Role for the synchronization script: User Delegation Key via Azure SDK
+# Role for the data synchronization script: it uses a SAS token obtained via user delegation key.
+# Because the `Get User Delegation Key` operation acts at the level of the storage account, we
+# first need to fetch its ID.
+# https://learn.microsoft.com/en-us/rest/api/storageservices/get-user-delegation-key#permissions
+data "azurerm_storage_account" "for_worklytics_data_export" {
+  name                = var.storage_account_name
+  resource_group_name = var.resource_group_name
+}
+
 resource "azurerm_role_assignment" "role_delegator" {
-  scope                = azurerm_storage_container.worklytics.resource_manager_id
+  scope                = data.azurerm_storage_account.for_worklytics_data_export.id
   role_definition_name = "Storage Blob Delegator"
   principal_id         = azuread_service_principal.worklytics.id
 }
@@ -103,7 +111,7 @@ resource "azurerm_role_assignment" "role_delegator" {
 resource "local_file" "todo" {
   count = var.todos_as_local_files ? 1 : 0
 
-  filename = "TODO - configure export in worklytics.md"
+  filename = "TODO - configure export in Worklytics.md"
 
   content = local.todo_content
 }
